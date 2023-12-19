@@ -1,0 +1,35 @@
+
+@startuml
+Actor Apelant
+Apelant -> Standard: Insertion de la monnaie
+Actor Correspondant
+
+loop 2min
+Standard -> Standard : décompte 2min
+Apelant -> Standard: Compose le numéro
+alt numéro pas composé
+Standard -> Apelant: Raccroche
+else numéro composé
+Standard -> Correspondant: Connecte la ligne
+end
+end
+alt  ligne occupée
+
+    Apelant -> Standard: Raccroche
+
+else ligne libre
+Correspondant -> Standard: Décroche
+
+loop consomation de monnaie
+Standard -> Standard : décompte la monnaie
+Apelant --> Standard: Ajout de monnaie
+end
+
+Apelant <-> Correspondant: Discute
+
+Correspondant --> Standard: Raccroche
+Apelant --> Standard: Raccroche
+Apelant <-> Correspondant: Coupe la ligne
+Standard --> Apelant: Rend la monnaie
+end
+@enduml
